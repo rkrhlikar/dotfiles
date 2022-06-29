@@ -57,6 +57,10 @@ Plug 'neovim/nvim-lspconfig'
 
 " Rust
 Plug 'simrat39/rust-tools.nvim'
+
+" Git diff
+Plug 'nvim-lua/plenary.nvim'
+Plug 'sindrets/diffview.nvim'
 call plug#end()
 
 " Set theme to sonokai
@@ -134,6 +138,9 @@ EOF
 
 " Cargo run for rust files
 autocmd FileType rust nnoremap <buffer> <silent> <leader>r :below 10sp \| lcd %:h \| terminal cargo run<CR>
+
+" diffview
+lua require("diffview").setup({})
 
 " Use space as leader key
 let mapleader = " "
