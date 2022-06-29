@@ -42,9 +42,16 @@ set path+=**
 call plug#begin()
 " Theme
 Plug 'sainnhe/sonokai'
+
+" Dependencies
+Plug 'nvim-lua/plenary.nvim' " telescope, diffview
+Plug 'kyazdani42/nvim-web-devicons' " telescope, lualine
+
 " Status line
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
+
+" telescope
+Plug 'nvim-telescope/telescope.nvim'
 
 " Autocomplete
 Plug 'hrsh7th/nvim-cmp'
@@ -59,7 +66,6 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'simrat39/rust-tools.nvim'
 
 " Git diff
-Plug 'nvim-lua/plenary.nvim'
 Plug 'sindrets/diffview.nvim'
 call plug#end()
 
@@ -69,6 +75,17 @@ colorscheme sonokai
 " Set up status line
 lua require("nvim-web-devicons").setup()
 lua require("lualine").setup()
+
+lua <<EOF
+local telescope = require'telescope'
+telescope.setup({
+  pickers = {
+    find_files = {
+      hidden = true
+    }
+  }
+})
+EOF
 
 " Set up autocompletion
 set completeopt=menuone,noinsert,noselect
@@ -140,7 +157,7 @@ EOF
 autocmd FileType rust nnoremap <buffer> <silent> <leader>r :below 10sp \| lcd %:h \| terminal cargo run<CR>
 
 " diffview
-lua require("diffview").setup({})
+lua require("diffview").setup()
 
 " Use space as leader key
 let mapleader = " "
@@ -156,3 +173,8 @@ nnoremap <silent> <leader>t :below 10sp \| terminal<CR>i
 
 " Exit terminal mode using escape
 tnoremap <Esc> <C-\><C-n>
+
+" telescope
+nnoremap <leader>ff <cmd>Telescope find_files<CR>
+nnoremap <leader>fb <cmd>Telescope buffers<CR>
+nnoremap <leader>fg <cmd>Telescope live_grep<CR>
