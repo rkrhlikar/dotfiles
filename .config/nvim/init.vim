@@ -52,8 +52,10 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-buffer'
 
-" Rust
+" LSP
 Plug 'neovim/nvim-lspconfig'
+
+" Rust
 Plug 'simrat39/rust-tools.nvim'
 call plug#end()
 
@@ -92,14 +94,19 @@ cmp.setup({
 })
 EOF
 
-" Set up rust LSP
+" Set up LSP
 lua <<EOF
 local on_attach = function(client, bufnr)
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set('n', '<leader>i', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+
+    -- Format on write
+    vim.api.nvim_command([[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)]])
 end
+
+-- rust
 local rust_tools = require'rust-tools'
 rust_tools.setup({
   server = {
@@ -116,12 +123,17 @@ rust_tools.setup({
     }
   }
 })
+
+-- cpp
+local clangd = require'lspconfig'.clangd;
+clangd.setup({
+  on_attach = on_attach,
+  cmd = { "clangd-12" }
+})
 EOF
 
 " Cargo run for rust files
 autocmd FileType rust nnoremap <buffer> <silent> <leader>r :below 10sp \| lcd %:h \| terminal cargo run<CR>
-" Cargo fmt on write
-autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 1000)
 
 " Use space as leader key
 let mapleader = " "
