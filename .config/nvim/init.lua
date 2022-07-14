@@ -37,36 +37,51 @@ vim.o.signcolumn = 'yes'
 -- Enable searching through all subfolders of open directory
 vim.o.path = vim.o.path .. ',**'
 
-local Plug = vim.fn['plug#']
-vim.call('plug#begin')
--- Theme
-Plug 'sainnhe/sonokai'
+-- Bootstrap packer
+local packer_install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if vim.fn.empty(vim.fn.glob(packer_install_path)) > 0 then
+  print('bootstraping')
+  packer_bootstrap = vim.fn.system({'git', 'clone', '--depth', '1',
+    'https://github.com/wbthomason/packer.nvim', packer_install_path})
+end
 
--- Dependencies
-Plug 'nvim-lua/plenary.nvim' -- telescope, diffview
-Plug 'kyazdani42/nvim-web-devicons' -- telescope, lualine
+require('packer').startup(function(use)
+  -- Packer can manage itself
+  use 'wbthomason/packer.nvim'
 
--- Status line
-Plug 'nvim-lualine/lualine.nvim'
+  -- Theme
+  use 'sainnhe/sonokai'
+  
+  -- Dependencies
+  use 'nvim-lua/plenary.nvim' -- telescope, diffview
+  use 'kyazdani42/nvim-web-devicons' -- telescope, lualine
+  
+  -- Status line
+  use 'nvim-lualine/lualine.nvim'
+  
+  -- telescope
+  use 'nvim-telescope/telescope.nvim'
+  
+  -- Autocomplete
+  use 'hrsh7th/nvim-cmp'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-buffer'
+  
+  -- LSP
+  use 'neovim/nvim-lspconfig'
+  
+  -- Rust
+  use 'simrat39/rust-tools.nvim'
+  
+  -- Git diff
+  use 'sindrets/diffview.nvim'
 
--- telescope
-Plug 'nvim-telescope/telescope.nvim'
-
--- Autocomplete
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-buffer'
-
--- LSP
-Plug 'neovim/nvim-lspconfig'
-
--- Rust
-Plug 'simrat39/rust-tools.nvim'
-
--- Git diff
-Plug 'sindrets/diffview.nvim'
-vim.call('plug#end')
+  -- If packer was just bootstraped install all plugins
+  if packer_bootstrap then
+    require('packer').sync()
+  end
+end)
 
 -- Set theme to sonokai
 vim.cmd("colorscheme sonokai")
@@ -157,8 +172,8 @@ clangd.setup({
 -- Cargo run for rust files
 local run_rust_setup = function()
   vim.api.nvim_buf_set_keymap('n', '<leader>r',
-                              ":below 10sp \\| lcd %:h \\| terminal cargo run<CR>",
-                              { noremap = true, silent = true })
+    ":below 10sp \\| lcd %:h \\| terminal cargo run<CR>",
+    { noremap = true, silent = true })
 end
 vim.api.nvim_create_autocmd('FileType', { pattern = 'rust', callback = run_rust_setup })
 
