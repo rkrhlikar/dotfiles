@@ -67,6 +67,12 @@ require('packer').startup(function(use)
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-buffer'
+
+  -- Treesitter
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+  }
   
   -- LSP
   use 'neovim/nvim-lspconfig'
@@ -126,6 +132,28 @@ cmp.setup({
     { name = 'buffer' },
   },
 })
+
+-- Set up Treesitter
+local treesiter_configs = require'nvim-treesitter.configs'
+treesiter_configs.setup {
+  ensure_installed = { 'bash', 'c', 'cmake', 'cpp', 'json5', 'lua', 'proto', 'rust', 'sql', 'yaml' },
+  highlight = {
+    enable = true,
+  },
+  indent = {
+    enable = true,
+  }
+}
+
+--[[ Enable this once https://github.com/nvim-telescope/telescope.nvim/issues/699 is fixed
+vim.api.nvim_create_autocmd({'BufEnter', 'BufAdd', 'BufNew', 'BufNewFile', 'BufWinEnter'}, {
+  group = vim.api.nvim_create_augroup('TS_FOLD_WORKAROUND', {}),
+  callback = function()
+    vim.opt.foldmethod = 'expr'
+    vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+  end
+})
+]]--
 
 -- Set up LSP
 local on_attach = function(client, bufnr)
