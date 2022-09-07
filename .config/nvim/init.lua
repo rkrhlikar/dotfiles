@@ -37,6 +37,9 @@ vim.o.signcolumn = 'yes'
 -- Enable searching through all subfolders of open directory
 vim.o.path = vim.o.path .. ',**'
 
+-- Enable 24-bit color
+vim.o.termguicolors = true
+
 -- Bootstrap packer
 local packer_install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if vim.fn.empty(vim.fn.glob(packer_install_path)) > 0 then
@@ -89,6 +92,9 @@ require('packer').startup(function(use)
   end
 end)
 
+-- Enable transparent background for buffers and lualine 
+vim.g.sonokai_transparent_background = 2
+
 -- Set theme to sonokai
 vim.cmd("colorscheme sonokai")
 
@@ -96,7 +102,11 @@ vim.cmd("colorscheme sonokai")
 local nvim_web_devicons = require'nvim-web-devicons'
 nvim_web_devicons.setup()
 local lualine = require'lualine'
-lualine.setup()
+lualine.setup({
+  options = {
+    theme = 'sonokai'
+  }
+})
 
 local telescope = require'telescope'
 telescope.setup({
