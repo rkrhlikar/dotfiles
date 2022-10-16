@@ -54,6 +54,7 @@ require('packer').startup(function(use)
 
   -- Theme
   use 'sainnhe/sonokai'
+  use 'tanvirtin/monokai.nvim'
   
   -- Dependencies
   use 'nvim-lua/plenary.nvim' -- telescope, diffview
@@ -92,21 +93,27 @@ require('packer').startup(function(use)
   end
 end)
 
--- Enable transparent background for buffers and lualine 
-vim.g.sonokai_transparent_background = 2
+-- -- Enable transparent background for buffers and lualine 
+-- vim.g.sonokai_transparent_background = 2
 
--- Set theme to sonokai
-vim.cmd("colorscheme sonokai")
+-- -- Set theme to sonokai
+-- vim.cmd("colorscheme sonokai")
+
+-- Set theme to monokai
+vim.api.nvim_create_autocmd('ColorScheme', { pattern = '*', command = "highlight normal ctermbg=none guibg=none" })
+local monokai = require'monokai'
+monokai.setup({ palette = monokai.pro })
 
 -- Set up status line
 local nvim_web_devicons = require'nvim-web-devicons'
 nvim_web_devicons.setup()
 local lualine = require'lualine'
-lualine.setup({
-  options = {
-    theme = 'sonokai'
-  }
-})
+-- lualine.setup({
+--   options = {
+--     theme = 'sonokai'
+--   }
+-- })
+lualine.setup()
 
 local telescope = require'telescope'
 telescope.setup({
@@ -167,13 +174,15 @@ vim.api.nvim_create_autocmd({'BufEnter', 'BufAdd', 'BufNew', 'BufNewFile', 'BufW
 
 -- Set up LSP
 local on_attach = function(client, bufnr)
+    local telescope_builtin = require'telescope.builtin'
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set('n', '<leader>i', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, bufopts)
     vim.keymap.set('n', ']d', vim.diagnostic.goto_next, bufopts)
     vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, bufopts)
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+    vim.keymap.set('n', 'gd', telescope_builtin.lsp_definitions, bufopts)
+    vim.keymap.set('n', 'gr', telescope_builtin.lsp_references, bufopts)
 
     -- Format on write
     local format = function()
