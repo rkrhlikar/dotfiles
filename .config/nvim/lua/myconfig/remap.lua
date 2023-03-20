@@ -12,3 +12,6 @@ vim.keymap.set("n", "<leader>l", "<C-w>l", opts)
 -- Copy into system clipboard
 vim.keymap.set({ "n", "v" }, "<leader>y", "\"+y", opts)
 vim.keymap.set("n", "<leader>Y", "\"+Y", opts)
+
+-- Exit terminal mode using escape
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', opts)
