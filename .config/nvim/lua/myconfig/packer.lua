@@ -33,7 +33,7 @@ return require('packer').startup(function(use)
 
     use { 'mbbill/undotree' }
 
-    use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+    use { 'sindrets/diffview.nvim', requires = { { 'nvim-lua/plenary.nvim' }, { 'nvim-tree/nvim-web-devicons' } } }
 
     use {
         'VonHeikemen/lsp-zero.nvim',
