@@ -5,7 +5,7 @@ lsp.preset('recommended')
 lsp.ensure_installed({
     'clangd',
     'rust_analyzer',
-    'sumneko_lua',
+    'lua_ls',
 })
 
 lsp.set_preferences({
