@@ -1,23 +1,37 @@
-local lsp = require('lsp-zero')
+local lsp_zero = require('lsp-zero')
 
-lsp.preset('recommended')
+lsp_zero.on_attach(function(client, bufnr)
+    local opts = { buffer = bufnr, noremap = true, remap = false }
+    vim.keymap.set('n', '<leader>i', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('v', '<leader>fs', vim.lsp.buf.format, opts)
 
-lsp.ensure_installed({
-    'clangd',
-    'rust_analyzer',
-    'lua_ls',
+    local telescope_builtin = require 'telescope.builtin'
+    vim.keymap.set('n', 'gd', telescope_builtin.lsp_definitions, opts)
+    vim.keymap.set('n', 'gr', telescope_builtin.lsp_references, opts)
+
+    -- Format on write
+    lsp_zero.buffer_autoformat();
+end)
+
+require('mason').setup({})
+require('mason-lspconfig').setup({
+    ensure_installed = {
+        'clangd',
+        'lua_ls',
+        'marksman',
+        'emmet_language_server',
+        'tsserver'
+    },
+    handlers = {
+        lsp_zero.default_setup,
+    }
 })
 
-lsp.set_preferences({
-    sign_icons = {},
-    set_lsp_keymaps = false
-})
-
-lsp.configure('clangd', {
-    cmd = { 'clangd-12' }
-})
-
-lsp.configure('rust_analyzer', {
+require('lspconfig').rust_analyzer.setup({
     settings = {
         ["rust-analyzer"] = {
             checkOnSave = {
@@ -30,23 +44,13 @@ lsp.configure('rust_analyzer', {
     }
 })
 
-lsp.on_attach(function(client, bufnr)
-    local opts = { buffer = bufnr, noremap = true, remap = false }
-    vim.keymap.set('n', '<leader>i', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
-    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-
-    local telescope_builtin = require 'telescope.builtin'
-    vim.keymap.set('n', 'gd', telescope_builtin.lsp_definitions, opts)
-    vim.keymap.set('n', 'gr', telescope_builtin.lsp_references, opts)
-
-    -- Format on write
-    local format = function()
-        vim.lsp.buf.formatting_sync(nil, 1000)
-    end
-    vim.api.nvim_create_autocmd('BufWritePre', { buffer = bufnr, callback = format })
-end)
-
-lsp.setup()
+local cmp = require('cmp')
+cmp.setup({
+    mapping = cmp.mapping.preset.insert({
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
+    }),
+    preselect = 'item',
+    completion = {
+        completeopt = 'menu,menuone,noinsert'
+    },
+})
