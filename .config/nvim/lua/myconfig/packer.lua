@@ -64,6 +64,13 @@ return require('packer').startup(function(use)
     end
     }
 
+    use { 'MeanderingProgrammer/markdown.nvim',
+        name = 'render-markdown',
+        config = function()
+            require('render-markdown').setup({})
+        end
+    }
+
     -- Automatically set up your configuration after cloning packer.nvim
     if packer_bootstrap then
         require('packer').sync()
