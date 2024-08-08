@@ -19,13 +19,7 @@ return require('packer').startup(function(use)
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
-    use { 'tanvirtin/monokai.nvim',
-        commit = '6fb4f7fee6ce7106fbde36149eeec91e55751a22', -- TODO: Remove after updating NVIM
-        config = function()
-            local monokai = require 'monokai'
-            monokai.setup({ palette = monokai.pro })
-        end
-    }
+    use { "catppuccin/nvim", as = "catppuccin" }
 
     use { 'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate' }
@@ -59,7 +53,20 @@ return require('packer').startup(function(use)
 
     use { 'nvim-lualine/lualine.nvim', config = function()
         local lualine = require 'lualine'
-        lualine.setup()
+        lualine.setup({
+            options = {
+                theme = 'catppuccin',
+                component_separators = { left = '󰿟', right = '󰿟' },
+                section_separators = { left = '', right = '' }
+            },
+            sections = {
+                lualine_x = {},
+                lualine_y = { 'filetype' }
+            },
+            inactive_sections = {
+                lualine_x = { 'filetype' }
+            }
+        })
     end
     }
 
