@@ -28,7 +28,6 @@ return require('packer').startup(function(use)
     }
 
     use { 'nvim-treesitter/nvim-treesitter',
-        commit = 'a2d7e78b0714a0dc066416100b7398d3f0941c23', -- TODO: Remove after updating NVIM
         run = ':TSUpdate' }
 
     use { 'mbbill/undotree' }
