@@ -1,24 +1,36 @@
 {
     "layer": "top",
     "position": "bottom",
-    "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
+    "modules-left": [
+        "sway/workspaces",
+        "sway/mode",
+        "sway/window"
+    ],
     "modules-center": ["clock"],
-    "modules-right": ["pulseaudio", "network", "battery"],
+    "modules-right": [
+        "custom/delimiter",
+        "pulseaudio",
+        "network",
+        "battery",
+        "custom/delimiter",
+        "custom/power"
+    ],
     "sway/window": {
+        "format": "<span color='#f38ba8'>&gt;</span>  {title}",
         "max-length": 50
     },
     "battery": {
-        "format": "{icon} {capacity}% {time}",
+        "format": "{icon}  {capacity}% <span alpha='40%'>{time}</span>",
         "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾",
                          "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-        "format-charging": "󰂄 {capacity}% {time}",
+        "format-charging": "󰂄  {capacity}% <span alpha='40%'>{time}</span>",
         "format-time": "{H}:{m}"
     },
     "clock": {
         "format-alt": "{:%a, %d. %b  %H:%M}"
     },
     "pulseaudio": {
-        "format": "{icon} {volume}%",
+        "format": "{icon}  {volume}%",
         "format-muted":  "󰸈 muted",
         "format-icons": {
             "default": ["󰕿", "󰖀", "󰕾"]
@@ -28,12 +40,20 @@
         "ignored-sinks": ["Easy Effects Sink"]
     },
     "network": {
-        "format-wifi": "{icon}  {essid}",
+        "format-wifi": "{icon}   {essid}",
         "tooltip-format-wifi": "{essid}: {ipaddr}",
         "format-ethernet": "󰈀  {ifname}",
         "tooltip-format-ethernet": "{ifname}: {ipaddr}",
         "format-disconnected": "No network",
         "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
         "max-length": 16
+    },
+    "custom/delimiter": {
+        "format": "\/\/",
+        "tooltip": false
+    },
+    "custom/power": {
+        "format": "󰐥",
+        "tooltip": false,
     }
 }
