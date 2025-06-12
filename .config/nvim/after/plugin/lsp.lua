@@ -24,7 +24,8 @@ require('mason-lspconfig').setup({
         'lua_ls',
         'marksman',
         'emmet_language_server',
-        'tsserver'
+        'tsserver',
+        'gopls'
     },
     handlers = {
         lsp_zero.default_setup,
