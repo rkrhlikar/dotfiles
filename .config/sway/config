@@ -209,9 +209,14 @@ bar {
 
 font pango:NotoMono Nerd Font Mono 8
 
-default_border none
+default_border pixel 1
 smart_gaps on
+smart_borders on
 gaps inner 4px
+
+client.focused #f38ba8 #f38ba8 #11111b
+client.focused_inactive #f38ba800 #f38ba800 #ffffff
+client.unfocused #f38ba800 #f38ba800 #ffffff
 
 input type:keyboard {
     xkb_options caps:super
