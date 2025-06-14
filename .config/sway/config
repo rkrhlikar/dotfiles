@@ -219,7 +219,8 @@ client.focused_inactive #f38ba800 #f38ba800 #ffffff
 client.unfocused #f38ba800 #f38ba800 #ffffff
 
 input type:keyboard {
-    xkb_options caps:super
+    xkb_layout us,si
+    xkb_options caps:super,grp:win_space_toggle
 }
 
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status

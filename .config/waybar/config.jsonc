@@ -9,6 +9,7 @@
     "modules-center": ["clock"],
     "modules-right": [
         "custom/delimiter",
+        "sway/language",
         "pulseaudio",
         "network",
         "battery",
