@@ -56,5 +56,6 @@
     "custom/power": {
         "format": "󰐥",
         "tooltip": false,
+        "on-click": "~/.config/sway/scripts/power_menu.sh"
     }
 }

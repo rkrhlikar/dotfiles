@@ -212,3 +212,5 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 # Screen brightness control
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +10%
+
+bindsym Print exec gnome-screenshot -i
