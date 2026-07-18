@@ -18,7 +18,7 @@ chosen="$(run_power_menu)"
 
 case ${chosen} in
     $lock)
-        swaylock
+        swaylock -C ~/.config/sway/swaylock/config
         ;;
     $shutdown)
         systemctl poweroff
