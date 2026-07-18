@@ -1,20 +1,17 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-power_menu=' 󰐥 Power Menu '
+lock=''
+shutdown='󰐥'
+reboot=''
+logout='󰍃'
 
-lock=' Lock'
-shutdown='󰗽 Shutdown'
-reboot=' Reboot'
-logout='󰗽 Logout'
-
-tofi_cmd() {
-    tofi --prompt-text="$1" \
-        --hide-input=true \
-        --hidden-character=""
+rofi_cmd() {
+    rofi -dmenu \
+        -theme ~/.config/sway/rofi/power_menu.rasi
 }
 
 run_power_menu() {
-    echo -e "$lock\n$shutdown\n$reboot\n$logout" | tofi_cmd "${power_menu}"
+    echo -e "$lock\n$shutdown\n$reboot\n$logout" | rofi_cmd
 }
 
 chosen="$(run_power_menu)"

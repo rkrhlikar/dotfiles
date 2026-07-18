@@ -1,0 +1,63 @@
+* {
+    bg: #000000;
+    background-color: @bg;
+}
+
+configuration {
+    show-icons: false;
+    location: 0;
+    font: "NotoMono Nerd Font Mono 30";	
+}
+
+window { 
+    width: calc(4.8em + 6);
+    height: calc(4.8em + 6);
+    padding: 0.4em;
+    border: 3;
+    border-color: #f38ba8;
+    background-color: @bg;
+}
+
+mainbox {
+    children: [listview];
+}
+
+listview {
+    border: 0;
+    scrollbar: false;
+    lines: 2;
+    columns: 2;
+    background-color: @bg;
+    text-color: #f38ba8;
+    spacing: 0;
+}
+
+element,
+element.normal.normal,
+element.normal.urgent,
+element.normal.active,
+element.alternate,
+element.alternate.normal,
+element.alternate.urgent,
+element.alternate.active {
+    padding: 0.5em;
+    text-color: inherit;
+    background-color: transparent;
+}
+
+element.selected.normal,
+element.selected.urgent,
+element.selected.active,
+element.alternate.selected.normal,
+element.alternate.selected.urgent,
+element.alternate.selected.active {
+    text-color: #11111b;
+    background-color: #f38ba8;
+}
+
+element-text {
+    vertical-align: 0.5;
+    horizontal-align: 0.5;
+    background-color: transparent;
+    text-color: inherit;
+}
