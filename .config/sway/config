@@ -219,6 +219,13 @@ client.focused #f38ba8 #f38ba8 #11111b
 client.focused_inactive #f38ba800 #f38ba800 #ffffff
 client.unfocused #f38ba800 #f38ba800 #ffffff
 
+input type:touchpad {
+    dwt enabled
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
+}
+
 input type:keyboard {
     xkb_layout us,si
     xkb_options caps:super,grp:win_space_toggle
