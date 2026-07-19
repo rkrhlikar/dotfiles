@@ -1,8 +1,4 @@
 vim.pack.add({
-    -- Dependency of Telescope and others
-    {
-        src = "https://github.com/nvim-lua/plenary.nvim",
-    },
     {
         src = "https://github.com/catppuccin/nvim",
     },
@@ -45,6 +41,17 @@ vim.pack.add({
     {
         src = "https://github.com/stevearc/conform.nvim",
     },
+
+    -- Telescope
+    {
+        src = "https://github.com/nvim-telescope/telescope.nvim",
+    },
+    {
+        src = "https://github.com/nvim-lua/plenary.nvim",
+    },
+    {
+        src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim",
+    }
 })
 
 require("plugins.mini-files")
@@ -53,3 +60,4 @@ require("plugins.lualine")
 require("plugins.mason")
 require("plugins.cmp")
 require("plugins.conform")
+require("plugins.telescope")

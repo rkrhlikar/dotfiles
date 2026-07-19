@@ -29,8 +29,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(event)
         local opts = { buffer = event.buf, silent = true }
 
-        map("n", "gd", vim.lsp.buf.definition, opts)
-        map("n", "gr", vim.lsp.buf.references, opts)
+        local telescope = require("telescope.builtin")
+        map("n", "gd", telescope.lsp_definitions, opts)
+        map("n", "gr", telescope.lsp_references, opts)
+
         map("n", "gi", vim.lsp.buf.implementation, opts)
 
         map("n", "<leader>i", vim.lsp.buf.hover, opts)
@@ -56,3 +58,42 @@ vim.api.nvim_create_autocmd("LspAttach", {
         )
     end,
 })
+
+-- Telescope
+local telescope = require("telescope.builtin")
+
+vim.keymap.set(
+    "n",
+    "<leader>ff",
+    telescope.find_files,
+    {
+        desc = "Find files",
+    }
+)
+
+vim.keymap.set(
+    "n",
+    "<leader>fg",
+    telescope.live_grep,
+    {
+        desc = "Live grep",
+    }
+)
+
+vim.keymap.set(
+    "n",
+    "<leader>fb",
+    telescope.buffers,
+    {
+        desc = "Find buffers",
+    }
+)
+
+vim.keymap.set(
+    "n",
+    "<leader>fh",
+    telescope.help_tags,
+    {
+        desc = "Help tags",
+    }
+)
