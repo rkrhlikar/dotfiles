@@ -10,3 +10,4 @@ require("config.keymaps")
 
 require("plugins")
 require("config.colors")
+require("config.treesitter")

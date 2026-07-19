@@ -9,6 +9,10 @@ vim.pack.add({
     {
         src = "https://github.com/echasnovski/mini.nvim",
     },
+    {
+        src = "https://github.com/nvim-treesitter/nvim-treesitter",
+    },
 })
 
 require("plugins.mini-files")
+require("plugins.treesitter")

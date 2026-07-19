@@ -47,3 +47,8 @@ opt.mouse = "a"
 
 -- Completion
 opt.completeopt = { "menu", "menuone", "noselect" }
+
+-- Folding
+opt.foldmethod = "expr"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+opt.foldlevel = 99
