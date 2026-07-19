@@ -23,3 +23,26 @@ map("n", "<C-Right>", "<cmd>vertical resize +2<CR>")
 map("n", "<leader>e", function()
     require("mini.files").open(vim.api.nvim_buf_get_name(0))
 end, { desc = "Open file explorer" })
+
+-- LSP
+vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(event)
+        local opts = { buffer = event.buf, silent = true }
+
+        map("n", "gd", vim.lsp.buf.definition, opts)
+        map("n", "gr", vim.lsp.buf.references, opts)
+        map("n", "gi", vim.lsp.buf.implementation, opts)
+
+        map("n", "<leader>i", vim.lsp.buf.hover, opts)
+        map("n", "<leader>d", vim.diagnostic.open_float, opts)
+        map("n", "]d", vim.diagnostic.goto_next, opts)
+        map("n", "[d", vim.diagnostic.goto_prev, opts)
+
+        map("n", "<leader>rn", vim.lsp.buf.rename, opts)
+        map("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+
+        map("n", "<leader>f", function()
+            vim.lsp.buf.format({ async = true })
+        end, opts)
+    end,
+})

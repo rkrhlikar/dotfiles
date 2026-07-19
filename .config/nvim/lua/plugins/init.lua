@@ -15,8 +15,15 @@ vim.pack.add({
     {
         src = "https://github.com/nvim-lualine/lualine.nvim",
     },
+    {
+        src = "https://github.com/mason-org/mason.nvim",
+    },
+    {
+        src = "https://github.com/neovim/nvim-lspconfig",
+    },
 })
 
 require("plugins.mini-files")
 require("plugins.treesitter")
 require("plugins.lualine")
+require("plugins.mason")
