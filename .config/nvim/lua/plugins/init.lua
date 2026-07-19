@@ -40,6 +40,11 @@ vim.pack.add({
     {
         src = "https://github.com/hrsh7th/cmp-path",
     },
+
+    -- Formatting
+    {
+        src = "https://github.com/stevearc/conform.nvim",
+    },
 })
 
 require("plugins.mini-files")
@@ -47,3 +52,4 @@ require("plugins.treesitter")
 require("plugins.lualine")
 require("plugins.mason")
 require("plugins.cmp")
+require("plugins.conform")
