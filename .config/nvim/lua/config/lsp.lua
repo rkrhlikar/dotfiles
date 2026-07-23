@@ -6,6 +6,7 @@ vim.lsp.config("*", {
 
 vim.lsp.enable({
     "rust_analyzer",
+    "emmet_language_server",
     "ts_ls",
     "marksman",
 })

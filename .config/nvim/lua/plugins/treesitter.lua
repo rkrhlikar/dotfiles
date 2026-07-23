@@ -9,6 +9,8 @@ treesitter.install({
 
     "rust",
 
+    "html",
+
     "javascript",
     "typescript",
     "tsx",

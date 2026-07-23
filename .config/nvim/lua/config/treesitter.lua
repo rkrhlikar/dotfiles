@@ -1,6 +1,7 @@
 local languages = {
     "lua",
     "rust",
+    "html",
     "javascript",
     "typescript",
     "tsx",
